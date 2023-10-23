@@ -178,7 +178,7 @@ defmodule Cachex.Hook do
       do: delegate_notify(event, state)
       def handle_event({ :sync, { ref, msg }, event }, state) do
         res = delegate_notify(event, state)
-        send(ref, { :ack, self, msg })
+        send(ref, { :ack, self(), msg })
         res
       end
       def handle_event({ :reset, args }, state),

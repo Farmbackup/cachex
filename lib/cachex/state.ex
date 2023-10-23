@@ -37,7 +37,7 @@ defmodule Cachex.State do
 
   @doc false
   def start do
-    pid = case start_link do
+    pid = case start_link() do
       { :ok, pid } -> pid
       { :error, { :already_started, pid } } -> pid
     end

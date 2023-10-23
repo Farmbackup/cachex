@@ -215,11 +215,11 @@ defmodule Cachex.Util do
   time and the TTL of the document.
   """
   def has_expired?(state, touched, ttl) when is_number(touched) and is_number(ttl) do
-    if state.options.disable_ode, do: false, else: touched + ttl < now
+    if state.options.disable_ode, do: false, else: touched + ttl < now()
   end
   def has_expired?(_state, _touched, _ttl), do: false
   def has_expired?(touched, ttl) when is_number(touched) and is_number(ttl) do
-    touched + ttl < now
+    touched + ttl < now()
   end
   def has_expired?(_touched, _ttl), do: false
 
@@ -306,7 +306,7 @@ defmodule Cachex.Util do
       {
         :orelse,                                # guards for matching
         { :"==", :"$3", nil },                  # where a TTL is not set
-        { :">", { :"+", :"$2", :"$3" }, now }   # or the TTL has not passed
+        { :">", { :"+", :"$2", :"$3" }, now() }   # or the TTL has not passed
       }
     ])
   end
@@ -319,7 +319,7 @@ defmodule Cachex.Util do
       {
         :andalso,                               # guards for matching
         { :"/=", :"$3", nil },                  # where a TTL is set
-        { :"<", { :"+", :"$2", :"$3" }, now }   # and the TTL has passed
+        { :"<", { :"+", :"$2", :"$3" }, now() }   # and the TTL has passed
       }
     ])
   end

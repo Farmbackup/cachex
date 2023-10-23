@@ -154,7 +154,7 @@ defmodule Cachex do
     start_link([ { :name, name } | options ], server_opts)
   end
   def start_link(options, server_opts, _opts) do
-    with { :ok, true } <- ensure_started,
+    with { :ok, true } <- ensure_started(),
          { :ok, opts } <- setup_env(options),
          { :ok,  pid } <- Supervisor.start_link(__MODULE__, opts, [ name: opts.cache ] ++ server_opts)
       do

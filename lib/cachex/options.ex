@@ -100,7 +100,7 @@ defmodule Cachex.Options do
   defp setup_remote_nodes(_cache, options) do
     this_node = node()
 
-    case Enum.uniq([ node | Util.get_opt_list(options, :nodes, [])]) do
+    case Enum.uniq([ node() | Util.get_opt_list(options, :nodes, [])]) do
       [^this_node] ->
         { Util.truthy?(options[:remote]), [this_node] }
       nodes ->
